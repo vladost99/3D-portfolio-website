@@ -12,15 +12,15 @@ const ScrollModelAnimation = () => {
   const [scene] = useState(new THREE.Scene());
   const [_controls, setControls] = useState();
 
-  const refContainer = useRef();
+  const refContainer: any = useRef();
 
   useEffect(() => {
     const parameters = {
       materialColor: "#ffeded",
     };
-    const { current: container } = refContainer;
+    //let { current }: any = refContainer;
 
-    if (container && !renderer) {
+    if (refContainer.current  && !renderer) {
       //Texture
       const textureLoader = new THREE.TextureLoader();
       const eartTexture = textureLoader.load("/textures/earth/earth.jpeg");
@@ -170,7 +170,8 @@ const ScrollModelAnimation = () => {
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
       renderer.outputEncoding = THREE.sRGBEncoding;
       renderer.shadowMap.enabled = true;
-      container.appendChild(renderer.domElement);
+
+      refContainer.current.appendChild(renderer.domElement);
 
       //Resize
       window.addEventListener("resize", () => {
@@ -211,7 +212,7 @@ const ScrollModelAnimation = () => {
         }
       });
       //Cursor
-      const cursor = {};
+      const cursor = {x: 0, y: 0};
       cursor.x = 0;
       cursor.y = 0;
 
